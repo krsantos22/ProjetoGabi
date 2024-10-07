@@ -24,9 +24,7 @@ jobs:
       - name: Cache Cypress binary
         uses: actions/cache@v2
         with:
-          path: |
-            ~/.cache/Cypress
-            ./node_modules/.bin/cypress
+          path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-cypress-
@@ -34,13 +32,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Adjust permissions for node_modules
-        run: |
-          sudo chown -R $USER:$USER ./node_modules
-          sudo chmod -R 755 ./node_modules
-
-      - name: Install Cypress binary
-        run: npx cypress install
+      - name: Install Allure CLI
+        run: npm install -g allure-commandline --save-dev
 
       - name: Run tests
         run: npx cypress run
