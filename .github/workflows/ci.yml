@@ -24,13 +24,18 @@ jobs:
       - name: Cache Cypress binary
         uses: actions/cache@v2
         with:
-          path: ~/.cache/Cypress
+          path: |
+            ~/.cache/Cypress
+            ./node_modules/.bin/cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-cypress-
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install Cypress binary
+        run: npx cypress install
 
       - name: Run tests
         run: |
