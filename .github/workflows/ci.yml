@@ -26,4 +26,14 @@ jobs:
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: 
+          restore-keys: |
+            ${{ runner.os }}-cypress-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npx cypress run
+
+      - name: Generate Allure Reports
+        run: npm run allure
