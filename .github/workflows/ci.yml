@@ -33,7 +33,10 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npx cypress run
+        run: |
+          sudo chown -R $USER:$USER ./node_modules
+          chmod +x ./node_modules/.bin/cypress
+          npx cypress run
 
       - name: Generate Allure Reports
-        run: npx allure generate allure-results --clean
+        run: npm run allure
