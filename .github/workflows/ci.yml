@@ -32,14 +32,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Cypress
-        run: npm install cypress --save-dev
-
-      - name: Fix Cypress Permissions
-        run: sudo chown -R $USER:$USER ./node_modules/.bin/cypress
+      - name: Install Cypress binary
+        run: npx cypress install
 
       - name: Run tests
-        run: npx cypress run
+        run: |
+          sudo chown -R $USER:$USER ./node_modules
+          npx cypress run
 
       - name: Generate Allure Reports
         run: npm run allure
