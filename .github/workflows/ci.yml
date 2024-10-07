@@ -24,7 +24,9 @@ jobs:
       - name: Cache Cypress binary
         uses: actions/cache@v2
         with:
-          path: ~/.cache/Cypress
+          path: |
+            ~/.cache/Cypress
+            ./node_modules
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-cypress-
@@ -34,6 +36,9 @@ jobs:
 
       - name: Set Cypress permissions
         run: sudo chmod -R 755 ./node_modules/.bin/cypress
+
+      - name: Install Cypress binary
+        run: npx cypress install
 
       - name: Run tests
         run: npx cypress run
