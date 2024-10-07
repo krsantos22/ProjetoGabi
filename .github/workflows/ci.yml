@@ -36,4 +36,4 @@ jobs:
         run: npx cypress run
 
       - name: Generate Allure Reports
-        run: npm run allure
+        run: npx allure generate allure-results --clean
