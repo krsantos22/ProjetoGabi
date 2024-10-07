@@ -31,6 +31,9 @@ jobs:
       - name: Generate Allure Report
         run: npm run allure
 
+      - name: List Allure Report Files
+        run: ls -R allure-report  # Novo passo para listar arquivos gerados
+
       - name: Upload Allure Report
         uses: actions/upload-artifact@v3  # Atualizado para v3
         with:
