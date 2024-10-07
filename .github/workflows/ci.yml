@@ -25,4 +25,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npx cypress run
+        run: |
+          sudo chown -R $USER:$USER ./node_modules
+          sudo chmod -R 755 ./node_modules/.bin
+          npx cypress run
