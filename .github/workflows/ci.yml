@@ -32,8 +32,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Clear Cypress cache
+        run: |
+          rm -rf ~/.cache/Cypress
+
       - name: Install Cypress binary
-        run: npx cypress install
+        run: |
+          sudo npx cypress install
 
       - name: Run tests
         run: |
