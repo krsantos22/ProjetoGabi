@@ -23,10 +23,10 @@ jobs:
         run: npm install
 
       - name: Install Cypress binary
-        run: npx cypress install
+        run: npx cypress install || true  # Ignora falhas no caso de instalação falhar
 
       - name: Fix permissions for Cypress
-        run: chmod +x node_modules/.bin/cypress
+        run: chmod -R 755 node_modules/.bin/cypress  # Corrige permissões para o binário do Cypress
 
       - name: Run Cypress tests
         run: npx cypress run
