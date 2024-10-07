@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI
 
 on:
   push:
@@ -25,4 +25,6 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm test
+        run: |
+          sudo chown -R $USER:$USER ./node_modules
+          npx cypress run
