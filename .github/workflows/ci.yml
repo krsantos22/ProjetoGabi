@@ -32,7 +32,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Cypress
+      - name: Adjust Cypress permissions
+        run: sudo chmod -R 755 ./node_modules
+
+      - name: Remove Cypress cache (if necessary)
+        run: sudo rm -rf ~/.cache/Cypress
+
+      - name: Install Cypress binary
         run: npx cypress install
 
       - name: Run tests
