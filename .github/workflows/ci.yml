@@ -32,18 +32,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Remove existing Cypress
-        run: |
-          rm -rf node_modules/.bin/cypress
-          rm -rf ~/.cache/Cypress
+      - name: Install Allure Commandline
+        run: npm install -g allure-commandline --save-dev
 
-      - name: Install Cypress
-        run: npm install cypress --save-dev
+      - name: Add Allure to PATH
+        run: echo "/usr/local/bin" >> $GITHUB_PATH
 
       - name: Run tests
-        run: |
-          sudo chown -R $USER:$USER ./node_modules
-          npx cypress run
+        run: npx cypress run
 
       - name: Generate Allure Reports
         run: npm run allure
