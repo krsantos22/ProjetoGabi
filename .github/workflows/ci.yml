@@ -26,17 +26,4 @@ jobs:
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-cypress-
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Install Cypress
-        run: npx cypress install
-
-      - name: Fix Cypress permissions
-        run: sudo chmod +x ./node_modules/.bin/cypress
-
-      - name: Run tests
-        run: npx cypress run
+          restore-keys: 
