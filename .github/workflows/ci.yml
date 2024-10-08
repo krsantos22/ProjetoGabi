@@ -33,14 +33,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cypress-
 
-      - name: Fix permissions for Cypress binary
-        run: sudo chmod -R 777 ~/.cache/Cypress || true  # Ignora erro caso o caminho não exista
-
       - name: Install Cypress binary
         run: npx cypress install
 
+      - name: Fix permissions for Cypress binary
+        run: sudo chmod -R 777 ~/.cache/Cypress
+
       - name: Run Cypress tests
         run: npx cypress run
+
+      - name: Check screenshots
+        run: |
+          echo "Checking for screenshots..."
+          ls cypress/screenshots || echo "No screenshots found."
+
+      - name: Check videos
+        run: |
+          echo "Checking for videos..."
+          ls cypress/videos || echo "No videos found."
 
       - name: Generate Allure Report
         run: npm run allure
