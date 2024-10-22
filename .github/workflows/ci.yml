@@ -1,13 +1,26 @@
-name: Cadastrar Novo Cliente
+name: Cypress Tests
 on:
-  workflow_dispatch: # Allows the workflow to be triggered manually.
+  push:
+  workflow_dispatch: # Permite que o workflow seja acionado manualmente.
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false # Evita que o workflow falhe imediatamente em caso de erro em um job.
+      matrix:
+        containers: [1, 2] # Usa 2 instâncias paralelas.
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
+      
+      # Instala as dependências do npm, faz o cache corretamente e executa todos os testes do Cypress
       - name: Cypress run
         uses: cypress-io/github-action@v6
+        with:
+          start: npm start # Inicia o servidor para os testes E2E.
+          wait-on: 'http://localhost:3000' # Espera o servidor estar pronto.
+          record: true # Grava no Cypress Cloud.
+          parallel: true # Executa os testes em paralelo usando as configurações acima.
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }} # Chave necessária para gravação no Cypress Cloud.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Token necessário para comunicação com o GitHub.
