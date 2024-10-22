@@ -1,4 +1,4 @@
-name: Teste Automation Estudos
+name: Cadastrar Novo Cliente
 on:
   workflow_dispatch: # Allows the workflow to be triggered manually.
 jobs:
