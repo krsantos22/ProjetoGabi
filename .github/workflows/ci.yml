@@ -1,38 +1,12 @@
-name: Tests Automation Estudos
+name: Teste Automation Estudos
 on: push
 jobs:
-  e2e-tests:
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/included:cypress-12.14.0-node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
-      options: --user 1001
+  cypress-run:
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.2
-      - name: Install Dependencies
-        run: yarn install
-      - name: Run E2e Tests
-        run: npx cypress run --browser chrome
-      - name: Get Allure history
-        uses: actions/checkout@v2
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-      - name: Test marketplace action
-        uses: simple-elf/allure-report-action@master
-        if: always()
-        id: allure-report
-        with:
-          allure_results: allure-results
-          gh_pages: gh-pages
-          allure_report: allure-report
-          allure_history: allure-history
-      - name: Deploy report to Github Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v2
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history
+        uses: actions/checkout@v4
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
