@@ -1,5 +1,6 @@
 name: Teste Automation Estudos
-on: push
+on:
+  workflow_dispatch: # Allows the workflow to be triggered manually.
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
