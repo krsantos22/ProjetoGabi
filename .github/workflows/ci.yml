@@ -17,8 +17,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm start # Inicia o servidor para os testes E2E.
-          wait-on: 'http://localhost:3000' # Espera o servidor estar pronto.
           record: true # Grava no Cypress Cloud.
           parallel: true # Executa os testes em paralelo usando as configurações acima.
         env:
