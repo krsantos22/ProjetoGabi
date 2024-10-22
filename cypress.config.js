@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 
 module.exports = defineConfig({
+  projectId: "8hewyp",
   e2e: {
     setupNodeEvents(on, config) {
       console.log("Allure Writer Loaded"); // Adicione este log
